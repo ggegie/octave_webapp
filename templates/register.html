@@ -1,0 +1,105 @@
+{% extends "layout.html" %}
+
+{% block head %}
+
+<title>สมัครสมาชิก</title>
+<link rel = "stylesheet" href = "/static/css/register.css">
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var passwordInput = document.getElementById('password');
+        var confirmPasswordInput = document.getElementById('confirmPassword');
+        var messageElement = document.getElementById('password-message');
+
+        function validatePassword() {
+            var password = passwordInput.value;
+            var confirmPassword = confirmPasswordInput.value;
+
+            if (password.length < 6) {
+                messageElement.textContent = 'รหัสผ่านควรมีความยาวมากกว่า 6 อักขระ';
+            } else if (password !== confirmPassword && confirmPassword !== '') {
+                messageElement.textContent = 'รหัสผ่านไม่ตรงกัน';
+            } else {
+                messageElement.textContent = '';
+            }
+        }
+
+        passwordInput.addEventListener('input', validatePassword);
+        confirmPasswordInput.addEventListener('input', validatePassword);
+    });
+</script>
+
+{% endblock %}
+
+{% block profile %}
+<a href="{{url_for('login')}}"><img src="/static/img/profile.png" alt="profile" width="50" height="50"> โปรไฟล์</a>
+{% endblock %}
+
+{% block genSong %}
+<a href="{{url_for('home')}}"><img src="/static/img/genSong.png" alt="genSong" width="50" height="50"> แต่งเพลง</a>
+{% endblock %}
+
+{% block songLibrary %}
+<a href="{{url_for('login')}}"><img src="/static/img/songLibrary.png" alt="songLibrary" width="50" height="50"> คลังเพลง</a>
+{% endblock %}
+
+{% block title %}
+สมัครสมาชิก
+{% endblock %}
+
+
+{% block content %}
+
+<form action="{{ url_for('register') }}" method="post">
+	{% if mesage is defined and mesage %}
+	<div class="alert-warn">
+		<div class="alert-warning"><p>**{{ mesage }}**</p></div>
+	</div>
+	{% endif %}
+	<div class="fromBox"> 
+		<div class="form-group">
+			<label for="name" class="label-text">ชื่อ - นามสกุล:</label><br>
+			<input type="text" class="form-control" id="name" name="name" placeholder="ชื่อ นามสกุล" name="name" required>
+		</div>
+		<div class="form-group">
+			<label for="email" class="label-text">อีเมล:</label><br>
+			<input type="email" class="form-control" id="email" name="email" placeholder="อีเมล" name="email" required>
+		</div>
+		<div class="containerdg">
+			<div class="form-group-dob">
+				<label for="dateOfBirth" class="label-text">วันเกิด:</label><br>
+				<input type="date" class="form-control-dob" id="dateOfBirth" name="dateOfBirth" placeholder="วันเกิด" name="dateOfBirth" required>
+			</div>
+			<div class="form-group-gender">
+				<label for="gender" class="label-text-gender">เพศ:</label><br>
+				<select class="form-control-gender" id="gender" name="gender" required>
+					<option value="" disabled selected>กรุณาเลือกเพศ</option>
+					<option value="ชาย">ชาย</option>
+					<option value="หญิง">หญิง</option>
+					<option value="อื่นๆ">อื่น ๆ</option>
+					<option value="ไม่ระบุ">ไม่ระบุ</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="password" class="label-text">รหัสผ่าน:  </label><span id="password-message" style="color: red;"></span><br>
+			<input type="password" class="form-control" id="password" name="password" placeholder="รหัสผ่าน" name="pswd" required>
+		</div> 
+		<div class="form-group">
+			<label for="confirmPassword" class="label-text">ยืนยันรหัสผ่าน:</label><br>
+			<input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="รหัสผ่าน" name="pswd" required>
+			<!-- <span id="password-message" style="color: red;"></span> -->
+		</div> 
+		<div class="bottom">
+			<br><button type="submit" class="bottomSubmit">สร้างบัญชี</button>
+			<h2 class="bottomWarn">มีบัญชีอยู่แล้ว?  <a class="bottomLink" href="{{url_for('login')}}"> เข้าสู่ระบบ</a></h2>
+		</div>
+	</div>
+</form>
+
+{% endblock %}
+
+
+{% block status %}
+<a href="{{url_for('login')}}"><img src="/static/img/login.png" alt="login" width="32" height="32"> เข้าสู่ระบบ</a>
+{% endblock %}

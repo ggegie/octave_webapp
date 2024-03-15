@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block head %}
+
+<title>เข้าสู่ระบบ</title>
+<link rel = "stylesheet" href = "/static/css/register.css">
+<link rel = "stylesheet" href = "/static/css/regisSuccss.css">
+
+{% endblock %}
+
+{% block profile %}
+<a href="#profile"><img src="/static/img/profile.png" alt="profile" width="50" height="50"> โปรไฟล์</a>
+{% endblock %}
+
+{% block genSong %}
+<a href="#genSong"><img src="/static/img/genSong.png" alt="genSong" width="50" height="50"> แต่งเพลง</a>
+{% endblock %}
+
+{% block songLibrary %}
+<a href="#songLibrary"><img src="/static/img/songLibrary.png" alt="songLibrary" width="50" height="50"> คลังเพลง</a>
+{% endblock %}
+
+{% block title %}{% endblock %}
+
+
+{% block content %}
+
+	<div class="box"> 		
+        <div class="sucessText">
+            <p><img src="/static/img/checked.png" alt="login" width="32" height="32"> แก้ไขรหัสผ่านสำเร็จแล้ว</p>
+        </div>
+        <div class="loginBox">
+            <a href="{{url_for('login')}}"> คลิกที่นี่เพื่อ เข้าสู่ระบบ</a>
+        </div>
+	</div>
+
+{% endblock %}
+
+
+{% block status %}
+ <a href="{{url_for('login')}}"><img src="/static/img/login.png" alt="login" width="32" height="32"> เข้าสู่ระบบ</a>
+{% endblock %}
