@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<link rel = "stylesheet" href = "/static/css/profile_login.css">
+<title>โปรไฟล์</title>
+{% endblock %}
+
+
+
+{% block profile %}
+<a href="{{url_for('profile')}}" style="color: black;"><img src="/static/img/profile.png" alt="profile" width="50" height="50"> โปรไฟล์</a>
+{% endblock %}
+
+{% block genSong %}
+<a href="{{url_for('genSong')}}"><img src="/static/img/genSong.png" alt="genSong" width="50" height="50"> แต่งเพลง</a>
+{% endblock %}
+
+{% block songLibrary %}
+<a href="{{url_for('songLibrary')}}"><img src="/static/img/songLibrary.png" alt="songLibrary" width="50" height="50"> คลังเพลง</a>
+{% endblock %}
+
+
+{% block title %}
+ข้อมูลส่วนตัว
+{% endblock %}
+
+{% block content %}
+<div class="personal-info-container">
+    <div class="personal-info">
+        <div class="name-column">ชื่อ-นามสกุล</div><div class="data-container">{{session.name}}</div>
+        <div class="name-column">อีเมล</div><div class="data-container">{{session.email}}</div>
+        <div class="name-column">วันเกิด</div><div class="data-container">{{session.dateOfBirth}}</div>
+        <div class="name-column">เพศ</div><div class="data-container">{{session.gender}}</div>
+    </div>
+</div>
+<p>ความปลอดภัย</p>
+<div class="security-container">
+    <a href="{{url_for('changePassword')}}">
+        <span class="edit-img"><img src="/static/img/edit.png" alt="edit" width="22" height="22"></span>
+    </a>
+    <div class="security-info">
+        <div class="name-column">รหัสผ่าน</div><div class="password-container">⬤⬤⬤⬤⬤⬤</div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block status %}
+<a href="{{url_for('logout')}}" id="logout-btn"><img src="/static/img/logout.png" alt="logout" width="32" height="32"> ออกจากระบบ</a>
+<div id="logoutConfirmationModal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <p>คุณต้องการออกจากระบบใช่หรือไม่?</p>        
+        <button id="confirmlogout">ออกจากระบบ</button>
+        <button id="cancellogout">ยกเลิก</button>
+    </div>    
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        let logoutBtn = document.getElementById('logout-btn');        
+    
+        function handleLinkClick(event, targetURL) {
+            event.preventDefault(); 
+            let modal = document.getElementById('logoutConfirmationModal');
+            modal.style.display = 'block';
+    
+            document.getElementById('confirmlogout').onclick = function() {
+                window.location.href = targetURL; 
+            };
+    
+            document.getElementById('cancellogout').onclick = function() {
+                modal.style.display = 'none';
+            };
+        }
+    
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', function(event) {
+                handleLinkClick(event, '/logout');
+            });
+        }
+    });
+</script>
+{% endblock %}

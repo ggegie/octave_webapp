@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<title>ลงชื่อเข้าใช้</title>
+<link rel = "stylesheet" href = "/static/css/login.css">
+{% endblock %}
+
+{% block profile %}
+<a href="{{url_for('login')}}"><img src="/static/img/profile.png" alt="profile" width="50" height="50"> โปรไฟล์</a>
+{% endblock %}
+
+{% block genSong %}
+<a href="{{url_for('home')}}"><img src="/static/img/genSong.png" alt="genSong" width="50" height="50"> แต่งเพลง</a>
+{% endblock %}
+
+{% block songLibrary %}
+<a href="{{url_for('login')}}"><img src="/static/img/songLibrary.png" alt="songLibrary" width="50" height="50"> คลังเพลง</a>
+{% endblock %}
+
+{% block title %}
+ลงชื่อเข้าใช้
+{% endblock %}
+
+{% block content %}
+<form action="{{ url_for('login') }}" method="post">
+	{% if mesage is defined and mesage %}
+	<div class="alert-warn">
+		<div class="alert-warning"><p>**{{ mesage }}**</p></div>
+	</div>
+	{% endif %}	
+	<!-- {% if message is defined and message %}
+	<div class="regisSuccess"><p>{{ message }} ยินดีต้อนรับข้อสู่ Octave กรุณาเข้าสู่ระบบ</p></div>
+	{% endif %}	 -->
+	<div class="fromBox"> 
+		<div class="form-group">
+			<label for="email" class="label-text">อีเมล:</label><br>
+			<input type="email" class="form-control" id="email" name="email" placeholder="อีเมล" name="email" required>
+		</div>
+		<div class="form-group">
+			<label for="password" class="label-text">รหัสผ่าน:</label><br>
+			<input type="password" class="form-control" id="password" name="password" placeholder="รหัสผ่าน" name="pswd" required>
+		</div>    
+		<div class="bottom">
+			<br><button type="submit" class="bottomSubmit">เข้าสู่ระบบ</button>
+			<h2 class="bottomWarn">ยังไม่มีบัญชีผู้ใช้? <a class="bottomLink" href="{{url_for('register')}}"> สมัครสมาชิก</a></h2>
+		</div>
+	</div>	
+</form>
+{% endblock %}
+
+
+{% block status %} 
+<a href="{{url_for('register')}}"><img src="/static/img/register.png" alt="login" width="32" height="32"> สมัครสมาชิก</a>
+{% endblock %}
