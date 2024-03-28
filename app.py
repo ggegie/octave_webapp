@@ -65,7 +65,7 @@ def list_to_str(list):
     for text in list:
         str+= " " + text
     str = str[1:]
-    print("str: " + str)    
+    # print("str: " + str)    
     return str
 
 def emotion_translate(emotion):
@@ -168,7 +168,7 @@ def list_to_str_withAnd(list):
     for text in list:
         str+= " " + text + " and"
     str = str[1:-4]
-    print("str: " + str)    
+    # print("str: " + str)    
     return str
 
 def generateSong(full_description):
@@ -184,7 +184,7 @@ def generateSong(full_description):
             return render_template('genSong.html', audio_generated=False, message=message)
         
         guiding_audio_file = request.files['guiding_audio_file']
-        print("guiding_audio_file",guiding_audio_file)
+        # print("guiding_audio_file",guiding_audio_file)
         # Generate a unique filename 
         unique_filename = str(uuid.uuid4())
 
@@ -247,13 +247,13 @@ def home():
     if request.method == 'POST':   
 
         descriptionTH = request.form['descriptions']
-        print("descriptionTH: "+ descriptionTH)
+        # print("descriptionTH: "+ descriptionTH)
 
         descriptionENG = translate_THToENG(descriptionTH)
-        print(descriptionENG)
+        # print(descriptionENG)
 
         descriptions = [descriptionENG['translatedText']]
-        print("descriptions: " + str(descriptions))
+        # print("descriptions: " + str(descriptions))
 
         full_description = ""
         emotion_descriptionTH = ""
@@ -262,7 +262,7 @@ def home():
 
         if 'emotion' in request.form :          
             emotion = request.form.getlist('emotion')
-            print("emotion: ")
+            # print("emotion: ")
             emotion_str = list_to_str(emotion)
             full_description += emotion_str
 
@@ -277,7 +277,7 @@ def home():
 
         if 'music-instrument' in request.form :   
             music_instruments = request.form.getlist('music-instrument')
-            print("music_instruments: ")
+            # print("music_instruments: ")
             instruments_str = list_to_str_withAnd(music_instruments)
             full_description += " with " + instruments_str
 
@@ -306,7 +306,7 @@ def homeGenEng():
     if request.method == 'POST':   
 
         descriptions = request.form['descriptions']
-        print("description: "+ descriptions)
+        # print("description: "+ descriptions)
 
         full_description = ""
         emotion_descriptionTH = ""
@@ -315,7 +315,7 @@ def homeGenEng():
 
         if 'emotion' in request.form :          
             emotion = request.form.getlist('emotion')
-            print("emotion: ")
+            # print("emotion: ")
             emotion_str = list_to_str(emotion)
             full_description += emotion_str
 
@@ -330,7 +330,7 @@ def homeGenEng():
 
         if 'music-instrument' in request.form :   
             music_instruments = request.form.getlist('music-instrument')
-            print("music_instruments: ")
+            # print("music_instruments: ")
             instruments_str = list_to_str_withAnd(music_instruments)
             full_description += " with " + instruments_str
 
@@ -512,13 +512,13 @@ def genSong():
         
 
         descriptionTH = request.form['descriptions']
-        print("descriptionTH: "+ descriptionTH)
+        # print("descriptionTH: "+ descriptionTH)
 
         descriptionENG = translate_THToENG(descriptionTH)
-        print(descriptionENG)
+        # print(descriptionENG)
 
         descriptions = [descriptionENG['translatedText']]
-        print("descriptions: " + str(descriptions))
+        # print("descriptions: " + str(descriptions))
 
         full_description = ""
         emotion_descriptionTH = ""
@@ -527,7 +527,7 @@ def genSong():
 
         if 'emotion' in request.form :          
             emotion = request.form.getlist('emotion')
-            print("emotion: ")
+            # print("emotion: ")
             emotion_str = list_to_str(emotion)
             full_description += emotion_str
 
@@ -543,7 +543,7 @@ def genSong():
 
         if 'music-instrument' in request.form :   
             music_instruments = request.form.getlist('music-instrument')
-            print("music_instruments: ")
+            # print("music_instruments: ")
             instruments_str = list_to_str_withAnd(music_instruments)
             full_description += " with " + instruments_str
 
@@ -580,7 +580,7 @@ def save_song(filename):
 
     save_directory = os.path.join(app.root_path, 'song_files', 'genSong_files_save')
     new_file_path = os.path.join(save_directory, filename)
-    print(new_file_path)
+    # print(new_file_path)
     # Move the file from the original location to the new directory
     shutil.move(file_path, new_file_path)
 
@@ -624,7 +624,7 @@ def genSongEng():
             print(f'จำนวนเพลงสำหรับผู้ใช้ {user_id} คือ {song_count}')
 
         descriptions = request.form['descriptions']
-        print("description: "+ descriptions)
+        # print("description: "+ descriptions)
 
         full_description = ""  
         emotion_descriptionTH = ""
@@ -634,7 +634,7 @@ def genSongEng():
 
         if 'emotion' in request.form :          
             emotion = request.form.getlist('emotion')
-            print("emotion: ")
+            # print("emotion: ")
             emotion_str = list_to_str(emotion)
             full_description += emotion_str
 
@@ -651,7 +651,7 @@ def genSongEng():
 
         if 'music-instrument' in request.form :   
             music_instruments = request.form.getlist('music-instrument')
-            print("music_instruments: ")
+            # print("music_instruments: ")
             instruments_str = list_to_str_withAnd(music_instruments)
             full_description += " with " + instruments_str
 
@@ -688,7 +688,7 @@ def save_songEng(filename):
 
     save_directory = os.path.join(app.root_path, 'song_files', 'genSong_files_save')
     new_file_path = os.path.join(save_directory, filename)
-    print(new_file_path)
+    # print(new_file_path)
     # Move the file from the original location to the new directory
     shutil.move(file_path, new_file_path)
 
@@ -721,7 +721,7 @@ def songLibrary():
     cursor.execute('SELECT * FROM gensong_user WHERE userID = %s', (user_id,))
     songs = cursor.fetchall()
     cursor.close()
-    print(songs)
+    # print(songs)
     return render_template('songLibrary_login.html', songs=songs)
         
 @app.route('/editSong/<int:song_id>', methods=['GET','POST'])
@@ -732,12 +732,12 @@ def editSong(song_id):
     cursor = mysql.connection.cursor()
     cursor.execute('SELECT * FROM gensong_user WHERE songID = %s', (song_id,))
     song = cursor.fetchone()
-    print("song")
-    print(song)
+    # print("song")
+    # print(song)
     cursor.close()
 
-    print("song path")
-    print(song[2])
+    # print("song path")
+    # print(song[2])
     song_paths = json.loads(song[2]) if song[2] else []
 
     if request.method == 'POST' and 'song_name' in request.form and request.form['song_name'].strip() != '':
@@ -764,8 +764,8 @@ def editSong(song_id):
             message = "ขนาดไฟล์ใหญ่เกินไป กรุณาอัปโหลดไฟล์ที่มีขนาดไม่เกิน 10 MB"
             return render_template('editSong_login.html', song=song, song_paths=song_paths, song_id=song_id, message=message)
         
-        print("len(song_paths)")
-        print(len(song_paths))
+        # print("len(song_paths)")
+        # print(len(song_paths))
 
         if len(song_paths) <= 19:
 
@@ -806,8 +806,8 @@ def editSong(song_id):
             cursor = mysql.connection.cursor()
             cursor.execute('SELECT * FROM gensong_user WHERE songID = %s', (song_id,))
             song = cursor.fetchone()
-            print("new Song")
-            print(song)
+            # print("new Song")
+            # print(song)
             cursor.close()
             song_paths = json.loads(song[2]) if song[2] else []
 
@@ -820,74 +820,55 @@ def editSong(song_id):
     if request.method == 'POST' and ('speed' in request.form or 'volume' in request.form):
 
         song_index = int(request.form['song_index'])
-        print("song_index")
-        print(song_index)
+        # print("song_index")
+        # print(song_index)
         old_path = os.path.join('song_files/genSong_files_save', song_paths[song_index])
-        # old_path = os.path.join('song_files/genSong_files_save', song[2])
         
         audio = AudioSegment.from_file(old_path)
 
         if 'speed' in request.form:
             try:
                 speed = float(request.form['speed'])
-                # Ensure speed is not zero or negative
                 if speed <= 0:
-                    speed = 1  # Default to normal speed if invalid value is provided
+                    speed = 1
             except ValueError:
-                # In case the conversion to float fails
                 speed = 1
 
-            # Load the audio data from file
-            y, sr = librosa.load(old_path, sr=None)  # Use the actual path to your file
+            if speed != 1 :
+                # Load the audio data from file
+                y, sr = librosa.load(old_path, sr=None)  # Use the actual path to your file
 
-            # Apply time-stretching with librosa
-            y_stretched = librosa.effects.time_stretch(y, rate=speed)
+                # Apply time-stretching with librosa
+                y_stretched = librosa.effects.time_stretch(y, rate=speed)
 
-            # Convert the numpy array back to an audio file
-            y_stretched_int = np.int16(y_stretched/np.max(np.abs(y_stretched)) * 32767)
-            audio = AudioSegment(y_stretched_int.tobytes(), frame_rate=sr, sample_width=2, channels=1)
+                # Convert the numpy array back to an audio file
+                y_stretched_int = np.int16(y_stretched/np.max(np.abs(y_stretched)) * 32767)
+                audio = AudioSegment(y_stretched_int.tobytes(), frame_rate=sr, sample_width=2, channels=1)
 
         if 'volume' in request.form:
-            # volume_percentage = float(request.form['volume'])
-
-            # if volume_percentage == 100:
-            #     dB_change = 0
-            # elif volume_percentage > 100:
-            #     dB_change = ((volume_percentage - 100) / 100) * 20
-            # else:
-            #     dB_change = ((volume_percentage - 100) / 100) * 20
-
             dB_change = float(request.form['volume'])
-            print("dB_change",dB_change)
+            if dB_change != 0 :
+                # print("dB_change",dB_change)
+                audio = audio + dB_change              
 
-            # Apply volume change with pydub (this is a relative change)
-            audio = audio + dB_change  # Note: use "+" to increase and "-" to decrease volume
+        if dB_change ==0 and speed != 1:
+            audio = audio -5
 
+        if dB_change !=0 or speed != 1:
+            filename = secure_filename(f"{uuid.uuid4()}.wav")
+            new_path = os.path.join('song_files/genSong_files_save', filename)
+            audio.export(new_path, format="wav")
 
-        filename = secure_filename(f"{uuid.uuid4()}.wav")
-        new_path = os.path.join('song_files/genSong_files_save', filename)
-        audio.export(new_path, format="wav")
+            song_paths[song_index] = filename
+            song_paths_json = json.dumps(song_paths)
+            cursor = mysql.connection.cursor()
+            update_stmt = ("UPDATE gensong_user SET songPath = %s WHERE songID = %s")
+            cursor.execute(update_stmt, (song_paths_json, song_id))
+            mysql.connection.commit()
+            cursor.close()
 
-        song_paths[song_index] = filename
-        song_paths_json = json.dumps(song_paths)
-        cursor = mysql.connection.cursor()
-        update_stmt = ("UPDATE gensong_user SET songPath = %s WHERE songID = %s")
-        cursor.execute(update_stmt, (song_paths_json, song_id))
-        mysql.connection.commit()
-        cursor.close()
-        # filename = secure_filename(f"{uuid.uuid4()}.wav")
-        # new_path = os.path.join('song_files/genSong_files_save', filename)
-        # audio.export(new_path, format="wav")
-        
-        # new_file_path = new_path.split("\\")[-1]
-        # cursor = mysql.connection.cursor()
-        # update_stmt = ("UPDATE gensong_user SET songPath = %s WHERE songID = %s")
-        # cursor.execute(update_stmt, (new_file_path, song_id))
-        # mysql.connection.commit()
-        # cursor.close()
-
-        if os.path.exists(old_path):
-            os.remove(old_path)
+            if os.path.exists(old_path):
+                os.remove(old_path)
 
         return render_template('editSong_login.html', song=song, song_paths=song_paths, song_id=song_id)
 
@@ -905,7 +886,7 @@ def chooseFile(song_id):
     
     if request.method == 'POST' and 'selectfile' in request.form:
         selectfile = request.form['selectfile']
-        print(selectfile)
+        # print(selectfile)
 
         user_id = session.get('userid')
 
@@ -919,22 +900,22 @@ def chooseFile(song_id):
 
         add_song_paths_list = json.loads(add_song_paths)
 
-        print("song_paths")
-        print(type(add_song_paths_list))
+        # print("song_paths")
+        # print(type(add_song_paths_list))
 
         cursor = mysql.connection.cursor()
         cursor.execute('SELECT * FROM gensong_user WHERE songID = %s', (song_id,))
         song = cursor.fetchone()
-        print(song)
+        # print(song)
         cursor.close()
 
         song_paths = json.loads(song[2]) if song[2] else []
 
         num_song = len(song_paths) + len(add_song_paths_list)
 
-        print("len(song_paths) + len(add_song_paths_list)")
-        print(len(song_paths))
-        print(len(add_song_paths_list))
+        # print("len(song_paths) + len(add_song_paths_list)")
+        # print(len(song_paths))
+        # print(len(add_song_paths_list))
 
 
 
@@ -957,7 +938,7 @@ def chooseFile(song_id):
 
                 song_name_list.append(filename)
 
-                print(f"Copied {source_path} to {destination_path}")
+                # print(f"Copied {source_path} to {destination_path}")
 
             result = song_paths + song_name_list
 
@@ -976,39 +957,8 @@ def chooseFile(song_id):
     cursor.execute('SELECT * FROM gensong_user WHERE userID = %s', (user_id,))
     songs = cursor.fetchall()
     cursor.close()
-    print(songs)
+    # print(songs)
     return render_template('chooseFile.html', songs=songs, song_id=song_id)
-
-# @app.route('/editSong/<int:song_id>', methods=['GET', 'POST'])
-# def editSong(song_id):
-#     # ตรวจสอบว่าผู้ใช้เข้าสู่ระบบแล้วหรือยัง
-#     if not session.get('userid'):
-#         return redirect(url_for('login'))
-
-#     # ดึงข้อมูลเพลงจากฐานข้อมูล
-#     cursor = mysql.connection.cursor()
-#     cursor.execute('SELECT * FROM gensong_user WHERE songID = %s', (song_id,))
-#     song = cursor.fetchone()
-#     print(song)
-#     cursor.close()
-
-#     # ถ้าเป็น GET request, แสดงฟอร์มพร้อมข้อมูลเพลงที่มีอยู่
-#     if request.method == 'GET':
-#         if song:
-#             return render_template('editSong_login.html', song=song)
-#         else:
-#             return 'Song not found', 404
-    # change song name
-    # elif request.method == 'POST':       
-    #     new_song_name = request.form['song_name']
-    #     cursor = mysql.connection.cursor()
-    #     cursor.execute('UPDATE gensong_user SET songName = %s WHERE songID = %s', (new_song_name, song_id))
-    #     mysql.connection.commit()
-    #     cursor.close()
-
-    #     return redirect(url_for('songLibrary'))
-
-
 
 @app.route('/audio/<filename>')
 def send_audio(filename):
@@ -1018,7 +968,7 @@ def send_audio(filename):
 def delete_song(song_id):
 
     if not session.get('userid'):
-        print("ไม่มี userid")
+        # print("ไม่มี userid")
         return jsonify({'success': False, 'message': 'Unauthorized'}), 401
 
     user_id = session.get('userid')
@@ -1026,7 +976,7 @@ def delete_song(song_id):
         # ดึงข้อมูลจาก body ของคำขอ
         data = request.get_json()
         song_index = data.get('song_index')
-        print(song_index)
+        # print(song_index)
 
         cursor = mysql.connection.cursor()
         # ตรวจสอบว่าเพลงเป็นของผู้ใช้นี้หรือไม่
@@ -1035,20 +985,20 @@ def delete_song(song_id):
         if song:
             song_path = song[0]
             song_path = json.loads(song_path)
-            print(song_path)
+            # print(song_path)
 
             song_name = song_path[song_index]
-            print("song_name: "+song_name)
+            # print("song_name: "+song_name)
 
             del song_path[song_index]
 
-            print(song_path)
+            # print(song_path)
 
             # ลบไฟล์เพลงจาก storage
             file_path = os.path.join('song_files/genSong_files_save', song_name)       
             if os.path.exists(file_path):
                 os.remove(file_path)
-                print("remove from storage")
+                # print("remove from storage")
 
             # ลบเพลงจากฐานข้อมูล
             song_paths_json = json.dumps(song_path)
@@ -1058,23 +1008,21 @@ def delete_song(song_id):
             mysql.connection.commit()
             cursor.close()
 
-            print("ลบเสร็จแล้ว")
+            # print("ลบเสร็จแล้ว")
             return jsonify({'success': True})
         else:
-            print("ไม่พบไฟล์เพลง")
+            # print("ไม่พบไฟล์เพลง")
             return jsonify({'success': False, 'message': 'ไม่พบไฟล์เพลง'}), 404
     except Exception as e:
-        print(e)
+        # print(e)
         return jsonify({'success': False, 'message': str(e)}), 500
 
 
 @app.route('/deleteWholeSong/<int:song_id>', methods=['POST'])
 def deleteWholeSong(song_id):
 
-    print("methoddddd")
-
     if not session.get('userid'):
-        print("ไม่มี userid")
+        # print("ไม่มี userid")
         return jsonify({'success': False, 'message': 'Unauthorized'}), 401
 
     user_id = session.get('userid')
@@ -1087,7 +1035,7 @@ def deleteWholeSong(song_id):
         if song:
             song_path = song[0]
             song_path = json.loads(song_path)
-            print(song_path)
+            # print(song_path)
 
             cursor = mysql.connection.cursor()
             cursor.execute('DELETE FROM gensong_user WHERE songID = %s', (song_id,))
@@ -1099,13 +1047,13 @@ def deleteWholeSong(song_id):
                 if os.path.exists(file_path):
                     os.remove(file_path)
 
-            print("ลบเสร็จแล้ว")
+            # print("ลบเสร็จแล้ว")
             return jsonify({'success': True})
         else:
-            print("ไม่พบไฟล์เพลง")
+            # print("ไม่พบไฟล์เพลง")
             return jsonify({'success': False, 'message': 'ไม่พบไฟล์เพลง'}), 404
     except Exception as e:
-        print(e)
+        # print(e)
         return jsonify({'success': False, 'message': str(e)}), 500
     
 
@@ -1141,62 +1089,5 @@ def downloadSong(song_id):
     
     return send_from_directory(directory, filename, as_attachment=True)
 
-# @app.route('/deleteSong', methods=['POST'])
-# def delete_song():
-#     song_index = request.args.get('song_index', type=int)
-#     # ดำเนินการลบเพลงจาก `song_paths` และอัปเดตฐานข้อมูล
-
-#     return jsonify({'success': True})
-
-# @app.route('/confirmDelete', methods =['GET', 'POST'])
-# def confirmDelete():
-#     return render_template('confirmDelete.html', songs=songs, song_id=song_id)
-    
-
-
-
 if __name__ == "__main__":
     app.run(debug=True)
-
-
-# @app.route('/genSong', methods=['GET', 'POST'])
-# def genSong():
-#     if request.method == 'POST':
-    
-#         def translate_THToENG(descriptions) :
-#             os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r"googlekey.json"
-#             translate_client = translate_v2.Client()
-#             text = descriptions
-#             target = "en"
-#             output = translate_client.translate(text,target_language=target)
-#             return output
-
-#         audio_files = []
-        
-#         descriptionTH = request.form['descriptions']
-#         print("descriptionTH: "+ descriptionTH)
-
-#         descriptionENG = translate_THToENG(descriptionTH)
-#         print(descriptionENG)
-
-#         descriptions = [descriptionENG['translatedText']]
-#         print("descriptions: " + str(descriptions))
-
-#         wav = model.generate(descriptions)
-
-#         # สร้างไบนารีไฟล์เสียง
-#         audio_io = io.BytesIO()
-#         torchaudio.save(audio_io, format="wav", src=wav[0], sample_rate=model.sample_rate)
-#         audio_io.seek(0)
-#         audio_data = audio_io.read()
-
-#         # บันทึกไฟล์เสียงลงในฐานข้อมูล
-#         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-#         cursor.execute('INSERT INTO audio_files (file_name, audio_data) VALUES (%s, %s)', ('output.wav', audio_data))
-#         mysql.connection.commit()
-#         audio_id = cursor.lastrowid
-#         cursor.close()
-
-#         return render_template('genSong_login.html', audio_generated=True , audio_id=audio_id)
-#     else:
-#         return render_template('genSong_login.html', audio_generated=False)
